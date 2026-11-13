@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Try the Odoo Work preview, review requirements and connect your staging deployment.">
+  <meta name="theme-color" content="#0b0d13">
+  <title>Get started — Odoo Work</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="./" aria-label="Odoo Work Home">
+        <img src="assets/icon-512.png" alt="" width="34" height="34">
+        <span class="brand-title">Odoo Work</span>
+      </a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html" >Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a class="nav-cta" href="setup.html" aria-current="page">
+          <span>Setup Guide</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article class="doc doc-layout"><header class="doc-header"><a class="doc-back" href="index.html">← Odoo Work</a><span class="doc-category">Setup guide</span><h1>From preview<br>to your workspace.</h1><p class="lead">Start with the <a href="https://chatgpt.com/plugins/plugins_6af6d78b0f288191bf8bfc1bb639bc3a" target="_blank" rel="noopener noreferrer">ChatGPT plugin listing</a>. For a local preview or your own connector, follow the developer steps below.</p></header><div class="doc-columns"><aside class="doc-sidebar"><h2 class="doc-toc-heading" id="contents-heading">On this page</h2><nav class="doc-toc" aria-labelledby="contents-heading"><a href="#try">Try it without connecting Odoo</a><a href="#requirements">Before connecting real work</a><a href="#connect">Connect a staging instance first</a><a href="#custom-mapping">Map your company’s custom workflow</a><a href="#validation">What’s been checked</a><a href="#operations">Keep the deployment under your control</a></nav></aside><div class="doc-body"><section id="try"><h2>Try it without connecting Odoo</h2><p>Download and extract the v0.2.0 package. You’ll need Node.js 24 or newer. In the extracted folder, run:</p><div class="code-block"><pre><code id="demo-command">npm ci
+npm run demo</code></pre><button data-copy="demo-command" aria-label="Copy demo commands"><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg> Copy</button></div><p>Open <code>http://127.0.0.1:8787/dashboard</code>. The local demo has fictional records, stores changes in memory and cannot accept real Odoo credentials.</p><a class="button primary" href="assets/odoo-work-manager-0.2.0.zip" download>Download v0.2.0 <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg></a></section>
+<section id="requirements"><h2>Before connecting real work</h2><div class="requirements"><div><strong>Odoo 19</strong><p>An instance where you can install the included Work Assistant addon. Project and Timesheet capabilities appear when those apps are installed.</p></div><div><strong>A deployed connector</strong><p>Node.js 24+, HTTPS hosting, an OAuth provider, protected credential storage and approved Odoo hostnames.</p></div><div><strong>Your own Odoo access</strong><p>A personal Odoo API key with appropriate permissions. A bot key acts as that bot; it does not impersonate your human account.</p></div></div><p>Other Odoo versions need compatibility testing. Environments that prohibit custom addons need a separate reviewed integration. Check API availability and deployment policies before proceeding.</p></section>
+<section id="connect"><h2>Connect a staging instance first</h2><ol class="prose-steps"><li><h3>Install the Odoo addon</h3><p>Add <code>odoo_addons/odoo_work_assistant</code> to the Odoo 19 addons path, restart Odoo, update the Apps list and install Odoo Work Assistant. It depends only on <code>base</code>.</p></li><li><h3>Configure and deploy the connector</h3><p>Start from <code>.env.example</code>. Set the real HTTPS URL, OAuth issuer and audience, encryption key, persistent data directory and exact allowed Odoo hostnames. Follow <code>docs/deployment.md</code> in the download.</p><div class="code-block"><pre><code id="build-command">npm ci
+npm run build
+npm start</code></pre><button data-copy="build-command" aria-label="Copy build commands"><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg> Copy</button></div></li><li><h3>Connect through the secure setup page</h3><p>Open your deployed connector’s <code>/setup</code> page. Sign in and enter the approved Odoo base URL, database if required, and your API key. Do not put the key in chat, a support issue or this website.</p><p>JSON-2 is the preferred transport. If unavailable, explicitly select the included addon’s HTTPS adapter. Both require the addon.</p></li><li><h3>Connect the MCP server in ChatGPT</h3><p>Generate manifests for your real connector URL:</p><div class="code-block"><pre><code id="configure-command">node scripts/configure.js --url https://YOUR-CONNECTOR</code></pre><button data-copy="configure-command" aria-label="Copy manifest command"><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg> Copy</button></div><p>Register your deployed <code>/mcp</code> endpoint and OAuth connection in ChatGPT, then install the packaged skill. The setup client and ChatGPT client must use the same stable identity. The package does not ship a public live endpoint.</p></li></ol></section>
+<section id="custom-mapping"><h2>Map your company’s custom workflow</h2><p>In Odoo, an administrator opens <strong>Work Assistant → Company Mappings</strong>. A profile can replace a concept’s model, map fields and required defaults, identify ownership, define completion and enable reviewed workflow methods.</p><p>Examples are included in <code>docs/custom-modules.md</code>. Unknown completion stays unknown. Timesheet submission and approval are enabled only when supported methods are mapped. Wizard-based workflows require Odoo or a reviewed noninteractive adapter.</p><div class="document-note"><strong>The assistant discovers structure. Your company defines meaning.</strong><p>A field name alone does not explain an approval rule. Test the profile with the intended user’s real Odoo permissions.</p></div></section>
+<section id="validation"><h2>What’s been checked</h2><p>The v0.2.0 implementation passed 15 automated server/MCP tests, desktop and mobile browser checks, addon syntax/XML checks and a production dependency advisory check at delivery. These local checks used labelled sample data.</p><p><strong>Live Odoo execution, real-provider OAuth sign-in and a ChatGPT-hosted connection have not yet been validated for your deployment.</strong> The download includes Odoo transactional tests and a Docker composition to run them on a clean staging database.</p><p>Read <code>docs/validation.md</code> in the package, then validate reads and one confirmed staging write before enabling production access.</p></section>
+<section id="operations"><h2>Keep the deployment under your control</h2><p>The current encrypted SQLite connection store is intended for a single connector instance on durable local storage. Scaling across replicas requires a shared transactional store and an appropriate encryption-key lifecycle.</p><p>Disconnect removes the active stored connection. Revoke the Odoo key separately. Your operator sets backup, audit and operation-receipt retention. Normal Odoo automation can run; external effects from custom modules may not be reversible by a database rollback.</p><p><a href="privacy.html">Data handling</a> · <a href="support.html">Troubleshooting and support</a> · <a href="https://developers.openai.com/plugins/build/auth" target="_blank" rel="noopener noreferrer">Official OpenAI authentication guidance</a></p></section></div></div></article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="wrap footer">
+    <div class="footer-left">
+      <span>© 2026 Harshit Garg · Odoo Work</span>
+      <span style="font-size: 13px; color: var(--text-dim);">An independent productivity project by Harshit Garg.</span>
+    </div>
+    <nav class="footerlinks" aria-label="Footer links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="https://github.com/Harshit1garg1/odoo-personal-work-manager-site" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </nav>
+  </footer>
+
+<script src="site.js" defer></script>
+</body>
+</html>

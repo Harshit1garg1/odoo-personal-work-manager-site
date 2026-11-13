@@ -1,0 +1,15 @@
+import { writeFile, readFile } from 'node:fs/promises';
+const args = process.argv.slice(2);
+const get = flag => args[args.indexOf(flag) + 1];
+if (!args.includes('--url')) throw new Error('Usage: node scripts/configure.js --url https://YOUR-CONNECTOR [--client-id PUBLIC-OAUTH-CLIENT]');
+const url = new URL(get('--url'));
+if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || !['', '/'].includes(url.pathname)) throw new Error('Use an HTTPS base URL without credentials or a path.');
+const auth = { type: 'oauth', resource: `${url.origin}/mcp`, baseScopes: ['odoo:read'], defaultScopes: ['odoo:read', 'odoo:write'] };
+if (args.includes('--client-id')) auth.client = { mode: 'provided', clientId: get('--client-id'), tokenEndpointAuthMethod: 'none' };
+const portable = { $schema: 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json', mcpServers: { odoo: { type: 'streamable-http', url: `${url.origin}/mcp`, extensions: { 'com.openai': { auth } } } } };
+await writeFile(new URL('../mcp.json', import.meta.url), JSON.stringify(portable, null, 2) + '\n');
+await writeFile(new URL('../.mcp.json', import.meta.url), JSON.stringify({ mcpServers: { odoo: { url: `${url.origin}/mcp` } } }, null, 2) + '\n');
+const path = new URL('../.codex-plugin/plugin.json', import.meta.url);
+const manifest = JSON.parse(await readFile(path, 'utf8')); manifest.mcpServers = './.mcp.json';
+await writeFile(path, JSON.stringify(manifest, null, 2) + '\n');
+console.log(`Configured ${url.origin}/mcp. No secrets were written.`);

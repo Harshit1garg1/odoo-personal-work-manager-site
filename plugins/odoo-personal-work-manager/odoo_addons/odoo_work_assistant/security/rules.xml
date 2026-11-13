@@ -1,0 +1,6 @@
+<odoo>
+  <record id="profile_company_rule" model="ir.rule"><field name="name">Work profile companies</field><field name="model_id" ref="model_odoo_work_profile"/><field name="domain_force">[('company_id', 'in', company_ids)]</field></record>
+  <record id="todo_own_rule" model="ir.rule"><field name="name">Private todos in allowed companies</field><field name="model_id" ref="model_odoo_work_todo"/><field name="domain_force">[('user_id', '=', user.id), ('company_id', 'in', company_ids)]</field></record>
+  <record id="note_own_rule" model="ir.rule"><field name="name">Private notes in allowed companies</field><field name="model_id" ref="model_odoo_work_note"/><field name="domain_force">[('user_id', '=', user.id), ('company_id', 'in', company_ids)]</field></record>
+  <record id="operation_own_rule" model="ir.rule"><field name="name">Own operation receipts</field><field name="model_id" ref="model_odoo_work_operation"/><field name="domain_force">[('user_id', '=', user.id), ('company_id', 'in', company_ids)]</field></record>
+</odoo>

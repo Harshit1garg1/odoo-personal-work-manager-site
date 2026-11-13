@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://harshit1garg1.github.io/odoo-personal-work-manager-site/sitemap.xml

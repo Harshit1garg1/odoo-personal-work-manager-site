@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16
+    environment: {POSTGRES_DB: postgres, POSTGRES_USER: odoo, POSTGRES_PASSWORD: test-only-password}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    tmpfs: [/var/lib/postgresql/data]
+  odoo:
+    image: odoo:19.0
+    depends_on:
+      db: {condition: service_healthy}
+    environment: {HOST: db, USER: odoo, PASSWORD: test-only-password}
+    volumes: ["./odoo_addons:/mnt/extra-addons:ro"]
+    command: ["odoo", "-d", "assistant_test", "-i", "project,hr_timesheet,odoo_work_assistant", "--test-enable", "--test-tags", "/odoo_work_assistant", "--stop-after-init", "--without-demo=all", "--http-interface=127.0.0.1"]

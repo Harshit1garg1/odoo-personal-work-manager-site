@@ -1,0 +1,24 @@
+{
+  "name": "odoo-work-manager",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "demo": "node scripts/demo.js",
+    "test": "node --test tests/*.test.js",
+    "test:odoo": "python scripts/check-addon.py"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@modelcontextprotocol/ext-apps": "^1.0.1",
+    "express": "^5.1.0",
+    "ipaddr.js": "^2.2.0",
+    "jose": "^6.1.0",
+    "undici": "^7.16.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": { "esbuild": "^0.25.0", "@playwright/test": "^1.56.0" }
+}

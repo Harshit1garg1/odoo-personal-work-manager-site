@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+profile_user,Work profile read,model_odoo_work_profile,base.group_user,1,0,0,0
+profile_admin,Work profile manage,model_odoo_work_profile,base.group_system,1,1,1,1
+todo_user,Personal todos,model_odoo_work_todo,base.group_user,1,1,1,1
+note_user,Personal notes,model_odoo_work_note,base.group_user,1,1,1,1
+operation_user,Own operation receipts,model_odoo_work_operation,base.group_user,1,1,1,0

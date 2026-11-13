@@ -1,25 +1,474 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Odoo Personal Work Manager helps you review your projects, tasks, timesheets and workload with ChatGPT.">
-  <meta name="theme-color" content="#0b0b12">
-  <title>Odoo Personal Work Manager — Harshit Garg</title>
-  <link rel="icon" type="image/png" href="assets/icon-512.png"><link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Odoo Work — A focused personal productivity assistant for people who manage their work in Odoo, powered by ChatGPT.">
+  <meta name="theme-color" content="#0b0d13">
+
+  <!-- Open Graph / Social Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Odoo Work — Personal Productivity Assistant">
+  <meta property="og:description" content="Review your assigned tasks, audit timesheet allocations, and structure your workday with ChatGPT — without noise or phantom updates.">
+  <meta property="og:image" content="https://harshit1garg1.github.io/odoo-personal-work-manager-site/assets/social-preview.png">
+  <meta name="twitter:card" content="summary">
+
+  <title>Odoo Work — Personal Productivity Assistant</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar"><div class="wrap nav"><a class="brand" href="./"><img src="assets/icon-512.png" alt=""><span>Odoo Personal Work Manager</span></a><nav class="links" aria-label="Main navigation"><a href="#features">Features</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://github.com/Harshit1garg1/odoo-personal-work-manager-site">Source</a></nav></div></header>
-<main class="wrap">
-  <section class="hero"><div class="eyebrow">An independent productivity project by Harshit Garg</div><h1>Make your Odoo workload easier to understand.</h1><p class="lead">Review your projects and pending tasks, understand where your time goes, plan realistic allocations, and keep task progress organized — with ChatGPT as your work companion.</p><div class="actions"><a class="btn primary" href="https://chatgpt.com/plugins/plugins_6af6d78b0f288191bf8bfc1bb639bc3a">View plugin in ChatGPT</a><a class="btn" href="https://github.com/Harshit1garg1">Developer profile</a></div><div class="status"><span class="dot"></span>Current release: workflow guidance only · Live Odoo connector not deployed</div></section>
-  <section id="features"><h2>Work visibility, time awareness and practical planning</h2><p class="lead">A personal assistant focused on the work assigned to you, rather than a broad company-wide reporting dashboard.</p><div class="grid">
-    <article class="card"><div class="icon" aria-hidden="true">01</div><h3>Project and task summaries</h3><p>Organize pending work, deadlines, priorities and project progress into a clear personal overview.</p></article>
-    <article class="card"><div class="icon" aria-hidden="true">02</div><h3>Understand time spent</h3><p>Compare actual timesheet entries with planned effort while keeping logged time, estimates and scheduled hours distinct.</p></article>
-    <article class="card"><div class="icon" aria-hidden="true">03</div><h3>Plan your capacity</h3><p>Build practical weekly allocations, identify overload and consider rebalancing before changing records.</p></article>
-    <article class="card"><div class="icon" aria-hidden="true">04</div><h3>Careful task completion</h3><p>Check the task and its configured Done stage. Completion changes must be explicitly confirmed and verified.</p></article>
-  </div></section>
-  <section class="section"><h2>Current integration status</h2><div class="callout warning"><p><strong>Live Odoo access is not available in the current release.</strong> The current ChatGPT plugin package contains workflow instructions; it does not host an Odoo connector, capture API credentials, or read or change an Odoo database.</p><p>A future connector is planned around the user's Odoo instance URL and a securely captured API key, using Odoo's supported external API where the particular deployment and subscription permit it. Never paste an API key or password into an ordinary ChatGPT message.</p></div></section>
-  <section class="section"><h2>Free in the current release</h2><p>The current release is free and has no paid features or in-plugin purchases. Future versions may introduce optional paid functionality; any such release will have updated pricing and applicable terms before it is offered.</p></section>
-  <section class="section"><h2>Independent project</h2><p>Odoo Personal Work Manager is developed independently by <a href="https://github.com/Harshit1garg1">Harshit Garg</a>. It is not an official Odoo product and is not affiliated with or endorsed by Odoo S.A. “Odoo” is used only to identify the software this project is designed to assist with.</p></section>
-</main>
-<footer class="wrap footer"><span>© 2026 Harshit Garg · Odoo Personal Work Manager</span><nav class="footerlinks" aria-label="Footer"><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://github.com/Harshit1garg1/odoo-personal-work-manager-site">GitHub</a></nav></footer>
-</body></html>
+
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="./" aria-label="Odoo Work Home">
+        <img src="assets/icon-512.png" alt="" width="34" height="34">
+        <span class="brand-title">Odoo Work</span>
+      </a>
+
+      <nav class="links" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#prompts">Prompt Playbook</a>
+        <a href="#roadmap">Architecture</a>
+        <a href="#faq">FAQ</a>
+        <a href="support.html">Support</a>
+        <a class="nav-cta" href="setup.html">
+          <span>Setup Guide</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-category">Personal Work Assistant · v0.2.0</span>
+
+        <h1>Your Odoo work.<br><span class="highlight">One clear view.</span></h1>
+
+        <p class="lead">
+          Tasks, time and the next thing to do. Bring your Odoo work into ChatGPT, with your company’s workflows and permissions.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="https://chatgpt.com/plugins/plugins_6af6d78b0f288191bf8bfc1bb639bc3a" target="_blank" rel="noopener noreferrer">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            <span>View plugin in ChatGPT</span>
+          </a>
+          <a class="btn" href="#prompts">
+            <span>Explore Prompts</span>
+          </a>
+
+        </div>
+
+<p class="preview-note">Created by <a href="https://github.com/Harshit1garg1" target="_blank" rel="noopener noreferrer">Harshit Garg · Developer profile</a>.<br>The v0.2.0 connector is a developer preview. Live Odoo access requires deployment and the included addon. <a href="setup.html">See requirements ↗</a></p>
+      </div>
+
+      <!-- Illustrative ChatGPT session — fictional data -->
+      <div class="hero-preview" aria-hidden="true">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+            </div>
+            <div class="terminal-title">
+              <span>ChatGPT</span>
+              <span>/</span>
+              <span>Odoo Work</span>
+            </div>
+            <div class="terminal-tag">Sample data</div>
+          </div>
+
+          <div class="terminal-body">
+            <div class="chat-bubble-user">
+              What needs my attention this week? Check my tasks and logged time.
+            </div>
+
+            <div class="chat-bubble-assistant">
+              <div class="assistant-kpis">
+                <div class="kpi-chip">
+                  <div class="kpi-label">Assigned</div>
+                  <div class="kpi-value">4 Tasks</div>
+                </div>
+                <div class="kpi-chip">
+                  <div class="kpi-label">Timesheet</div>
+                  <div class="kpi-value warning">32.5 / 36h</div>
+                </div>
+                <div class="kpi-chip">
+                  <div class="kpi-label">Capacity</div>
+                  <div class="kpi-value">+3.5h Open</div>
+                </div>
+              </div>
+
+              <div class="task-list-preview">
+                <div class="task-item-preview alert">
+                  <div class="task-info">
+                    <span class="task-id">#1042</span>
+                    <span class="task-title">Stripe Webhook Sync</span>
+                  </div>
+                  <span class="task-meta" style="color: #fbbf24;">7.5h / 6h (+1.5h)</span>
+                </div>
+                <div class="task-item-preview">
+                  <div class="task-info">
+                    <span class="task-id">#1088</span>
+                    <span class="task-title">Customer Onboarding Flow</span>
+                  </div>
+                  <span class="task-meta">4.0h / 8h (In Progress)</span>
+                </div>
+              </div>
+
+              <div style="margin-top: 12px; font-size: 13px; color: var(--text-muted); line-height: 1.55;">
+                <strong style="color: #ffffff;">Action Plan:</strong> Task #1042 is 1.5h over estimate. Keep Friday’s remaining 3.5h for testing, then review the completion change.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Active Card Architecture: 3 Workflow Step Cards -->
+    <section class="section" id="workflow">
+      <div class="section-header">
+        <span class="section-label">A working day</span>
+        <h2>Keep your day in view.</h2>
+        <p>Review your work, keep time records clear, and confirm changes before they reach Odoo.</p>
+      </div>
+
+      <div class="workflow-strip">
+        <div class="workflow-card">
+          <div class="workflow-phase">01 / Plan</div>
+          <h3>Know what needs you</h3>
+          <p>Review assigned tasks, deadlines and priorities. Broaden to team work only when requested and permitted by your Odoo access.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="workflow-phase">02 / Keep track</div>
+          <h3>Account for your time</h3>
+          <p>Review logged time, add actual work and edit entries. Keep estimates, scheduled hours and period totals clearly separate.</p>
+        </div>
+
+        <div class="workflow-card">
+          <div class="workflow-phase">03 / Finish</div>
+          <h3>Close the loop</h3>
+          <p>Preview the configured completion action, confirm it, then check the saved result. No extra chatter is posted unless requested.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Bento Grid -->
+    <section class="section" id="features">
+      <div class="section-header">
+        <span class="section-label">Your workspace</span>
+        <h2>The work, without the searching.</h2>
+        <p>Projects, tasks, time and personal notes — available together, with access controlled by Odoo.</p>
+      </div>
+
+      <div class="bento-grid">
+
+        <!-- Bento 1: Large Span -->
+        <article class="bento-card col-7">
+<h3>A place for the work ahead</h3>
+          <p>See assigned work, create projects or tasks, find assignees and keep private todos and notes close. Available actions follow your Odoo access.</p>
+
+          <div class="bento-visual">
+            <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-dim); margin-bottom: 8px;">
+              <span>Sample personal workload</span>
+              <span style="color: #ffffff; font-weight: 600;">3 tasks to review</span>
+            </div>
+            <div style="background: #141824; border-radius: 4px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-weight: 500;">Review onboarding checklist</span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: #94a3b8;">Priority: High</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bento 2 -->
+        <article class="bento-card col-5">
+<h3>Time that adds up</h3>
+          <p>Create and edit timesheets, review a selected period’s totals and compare them with estimates. Submission and approval use explicitly mapped company actions.</p>
+
+          <div class="bento-visual">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="color: var(--text-dim);">Logged vs Estimate</span>
+              <span style="font-family: var(--font-mono); font-weight: 600; color: #fbbf24;">88% Consumed</span>
+            </div>
+            <div style="height: 6px; background: #1c2230; border-radius: 99px; overflow: hidden;">
+              <div style="height: 100%; width: 88%; background: var(--accent);"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bento 3 -->
+        <article class="bento-card col-5">
+<h3>Preview, Confirm &amp; Verify</h3>
+          <p>Review the exact record, company, acting user and proposed change. Odoo checks access and business rules; the connector verifies the saved result.</p>
+
+          <div class="bento-visual" style="border-left: 3px solid #3b82f6;">
+            <div style="font-weight: 600; color: #ffffff; margin-bottom: 2px;">Sample: Task #1042 → Completed</div>
+            <div style="color: var(--text-dim); font-size: 12px;">Proposed change → Your confirmation → Saved result</div>
+          </div>
+        </article>
+
+        <!-- Bento 4: Large Span -->
+        <article class="bento-card col-7">
+<h3>Your company’s way of working</h3>
+          <p>Company mappings define the models, required fields and supported actions. Custom completion and approval rules are configured explicitly.</p>
+
+          <div class="bento-visual">
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span style="color: var(--text-muted); font-size: 12px;">Per-company mappings · Encrypted per-user Odoo credentials</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Interactive Prompt Playbook: Dual-Card Architecture -->
+    <section class="section" id="prompts">
+      <div class="section-header">
+        <span class="section-label">Try a conversation</span>
+        <h2>A useful place to start.</h2>
+        <p>Use these example prompts with a configured connection. The illustrated outputs use fictional data and are not live Odoo results.</p>
+      </div>
+
+      <div class="playbook-container">
+        <div class="playbook-tabs" role="tablist" aria-label="Prompt Workflows">
+          <button class="playbook-tab active" role="tab" aria-selected="true" data-tab="tab-standup">1. Daily Standup Brief</button>
+          <button class="playbook-tab" role="tab" aria-selected="false" data-tab="tab-timesheet">2. Timesheet Sanity Check</button>
+          <button class="playbook-tab" role="tab" aria-selected="false" data-tab="tab-capacity">3. Weekly Rebalancing</button>
+          <button class="playbook-tab" role="tab" aria-selected="false" data-tab="tab-completion">4. Safe Task Completion</button>
+        </div>
+
+        <div class="playbook-content">
+
+          <!-- Panel 1 -->
+          <div class="playbook-panel active" id="tab-standup" role="tabpanel">
+            <div class="prompt-box">
+              <pre class="prompt-text">Review my assigned Odoo tasks for this week.
+
+Show what is in progress, blocked or due soon. Include the company and date range. Tell me which facts or metrics are unavailable, and suggest what to focus on first.</pre>
+              <div class="prompt-actions">
+                <span class="prompt-hint">Ideal for morning planning and daily team standups.</span>
+                <button class="btn-copy" data-copy-prompt>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy Prompt</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="playbook-result-card">
+              <div class="playbook-result-header">
+                <span>Output Format · Standup Brief</span>
+                <span style="color: #60a5fa;">Illustrative Output</span>
+              </div>
+              <div class="playbook-result-body">
+                <p><strong>• In Progress:</strong> Task #1042 (Webhook sync) &amp; #1088 (Onboarding).</p>
+                <p><strong>• Blocked:</strong> None in your queue; awaiting PR review on #1040.</p>
+                <p><strong>• Today's Anchor:</strong> Finalize Webhook error handling on #1042 before 2 PM code freeze.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2 -->
+          <div class="playbook-panel" id="tab-timesheet" role="tabpanel">
+            <div class="prompt-box">
+              <pre class="prompt-text">Review my Odoo timesheets for this week.
+
+Separate actual time logged in this period from all-time task totals and planned estimates. Highlight entries that need attention. Do not create or change any time entries.</pre>
+              <div class="prompt-actions">
+                <span class="prompt-hint">Prevents budget surprises before end-of-week timesheet submission.</span>
+                <button class="btn-copy" data-copy-prompt>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy Prompt</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="playbook-result-card">
+              <div class="playbook-result-header">
+                <span>Output Format · Timesheet Audit</span>
+                <span style="color: #fbbf24;">Variance Alert</span>
+              </div>
+              <div class="playbook-result-body">
+                <p><strong>Variance Detected:</strong> Task #1042 is at 125% of allocated estimate (7.5h / 6h).</p>
+                <p><strong>Reason:</strong> Edge case retries during Stripe 2026 API signature migration.</p>
+                <p><strong>Lead Note:</strong> "Flagging a 1.5h overrun on #1042 due to third-party retry schema changes. Core fixes now tested and passing."</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3 -->
+          <div class="playbook-panel" id="tab-capacity" role="tabpanel">
+            <div class="prompt-box">
+              <pre class="prompt-text">I have 38 working hours available this week.
+
+Review my assigned tasks, deadlines and verified remaining effort. Propose a realistic allocation without exceeding that capacity. Show any proposed allocation changes before saving them.</pre>
+              <div class="prompt-actions">
+                <span class="prompt-hint">Maintains sustainable velocity and prevents overcommitment burnout.</span>
+                <button class="btn-copy" data-copy-prompt>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy Prompt</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="playbook-result-card">
+              <div class="playbook-result-header">
+                <span>Output Format · Workload Balancing</span>
+                <span style="color: #60a5fa;">Rebalance Model</span>
+              </div>
+              <div class="playbook-result-body">
+                <p><strong>Proposed Deferral:</strong> Move low-priority documentation update (8h) to next sprint.</p>
+                <p><strong>Weekly Cadence:</strong> Mon–Thu: 8h/day on core work. Fri: 4h closing tasks + 2h buffer. Total: 38h.</p>
+                <p><strong>Velocity Impact:</strong> Keeps the proposed allocation within the stated 38-hour capacity.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4 -->
+          <div class="playbook-panel" id="tab-completion" role="tabpanel">
+            <div class="prompt-box">
+              <pre class="prompt-text">Help me complete Odoo Task #[Number] &quot;[Task Name]&quot;.
+
+Check its configured completion action and any blockers. Show the exact change, company, acting user and side effects before I confirm. Report the verified saved result afterward.</pre>
+              <div class="prompt-actions">
+                <span class="prompt-hint">Review the configured completion action before saving.</span>
+                <button class="btn-copy" data-copy-prompt>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy Prompt</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="playbook-result-card">
+              <div class="playbook-result-header">
+                <span>Output Format · Completion Preview</span>
+                <span style="color: #60a5fa;">Pre-Flight Check</span>
+              </div>
+              <div class="playbook-result-body">
+                <p><strong>Example preview:</strong> Task #1042 · Current company · Acting Odoo user · Configured completion action.</p>
+                <p><strong>Next step:</strong> Review and confirm the proposed change. Only a verified saved receipt is reported as success.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Transparent Roadmap -->
+    <section class="section" id="roadmap">
+      <div class="section-header">
+        <span class="section-label">Architecture &amp; Release Status</span>
+        <h2>Inside the developer preview</h2>
+        <p>The implementation is available. Connecting real work still requires setup and staging validation.</p>
+      </div>
+
+      <div class="roadmap-grid">
+
+        <!-- Current Version -->
+        <div class="roadmap-card current">
+          <div class="roadmap-tag active">Current Implementation · v0.2.0</div>
+          <h3>Connector, Dashboard &amp; Workflows</h3>
+          <p>The downloadable developer preview includes authenticated tools, a dashboard, an Odoo addon and workflow instructions. It does not include a public live endpoint.</p>
+
+          <ul class="roadmap-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Five Work Areas:</strong> Projects, tasks, timesheets, todos and notes through the connector.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Secure Connection Setup:</strong> API keys go to the deployed connector’s credential form, never ordinary chat.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Custom Company Mappings:</strong> Use verified fields, required defaults and supported workflow actions.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Reviewed Writes:</strong> Preview, confirmation, saved-value checks and duplicate-safe operation receipts.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Planned Version -->
+        <div class="roadmap-card planned">
+          <div class="roadmap-tag future">Before Connecting Live Odoo</div>
+          <h3>Deployment &amp; Staging Validation</h3>
+          <p>Odoo 19 is the implementation target. Local checks passed; live Odoo, real-provider OAuth and a ChatGPT-hosted connection still require staging validation.</p>
+
+          <ul class="roadmap-list">
+            <li>
+              <svg class="icon-future" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span><strong>Odoo Deployment:</strong> Install the included addon. API availability and custom-addon policies depend on your host.</span>
+            </li>
+            <li>
+              <svg class="icon-future" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span><strong>Authenticated Connector:</strong> Configure HTTPS, OAuth, encrypted storage and approved Odoo hosts.</span>
+            </li>
+            <li>
+              <svg class="icon-future" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span><strong>Company Configuration:</strong> Map unfamiliar completion, required fields and submit/approve actions.</span>
+            </li>
+            <li>
+              <svg class="icon-future" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span><strong>Validate Before Production:</strong> Test the included Odoo runtime suite and one confirmed staging write.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Frequently Asked Questions -->
+    <section class="section" id="faq">
+      <div class="section-header">
+        <span class="section-label">Questions &amp; Answers</span>
+        <h2>Frequently asked questions</h2>
+        <p>Connection requirements, custom modules and how changes reach Odoo.</p>
+      </div>
+
+      <div class="faq-list">
+<details class="faq-item" open><summary class="faq-summary"><span>Does this need an Odoo API key?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></summary><div class="faq-body"><p>Live access uses your own Odoo API key, entered only in the deployed connector’s secure setup form. Never paste a key, password or cookie into ChatGPT. The illustrative examples on this website use fictional data and have no live connection.</p></div></details>
+<details class="faq-item"><summary class="faq-summary"><span>Can it change records in my Odoo instance?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></summary><div class="faq-body"><p>The v0.2.0 connector implements reads and writes for accessible work. Changes require an exact preview and confirmation, then Odoo permission checks and saved-result verification. Production use requires a configured deployment and staging validation.</p></div></details>
+<details class="faq-item"><summary class="faq-summary"><span>Will it work with custom modules?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></summary><div class="faq-body"><p>Administrators can map company-specific models, required fields, ownership and supported actions. Metadata is discovered on the actual instance. Unknown completion or approval behavior needs a verified mapping; the assistant does not guess a standard flow.</p></div></details>
+<details class="faq-item"><summary class="faq-summary"><span>Which Odoo versions and deployments are supported?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></summary><div class="faq-body"><p>Odoo 19 is the implementation target. Other versions need compatibility testing. The current package requires its included addon, an authenticated connector and appropriate API availability. Hosts that prohibit custom addons need a separate reviewed integration. See the setup guide for the current requirements.</p></div></details>
+<details class="faq-item"><summary class="faq-summary"><span>Is the developer preview ready for production?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></summary><div class="faq-body"><p>Local automated tests, browser checks and static addon checks passed. Live Odoo execution, real-provider OAuth and a ChatGPT-hosted connection still need staging validation. The package has no in-plugin billing, but Odoo, hosting and other service costs may apply.</p></div></details>
+</div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="wrap footer">
+    <div class="footer-left">
+      <span>© 2026 Harshit Garg · Odoo Work</span>
+      <span style="font-size: 13px; color: var(--text-dim);">An independent productivity project by Harshit Garg.</span>
+    </div>
+
+    <nav class="footerlinks" aria-label="Footer links">
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="https://github.com/Harshit1garg1/odoo-personal-work-manager-site" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </nav>
+  </footer>
+
+  <script src="site.js" defer></script>
+
+</body>
+</html>

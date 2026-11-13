@@ -1,53 +1,41 @@
-# Odoo Personal Work Manager
+# Odoo Work
 
-**A personal productivity assistant for people who manage their work in Odoo.**
+Odoo projects, tasks, timesheets, todos and notes, with ChatGPT as your work companion. Independent project by [Harshit Garg](https://github.com/Harshit1garg1).
 
-Odoo Personal Work Manager is an independent project by [Harshit Garg](https://github.com/Harshit1garg1). It is intended to help individuals understand their project workload, review time spent, plan realistic allocations, and keep task progress organized with the help of ChatGPT.
+[View plugin in ChatGPT](https://chatgpt.com/plugins/plugins_6af6d78b0f288191bf8bfc1bb639bc3a) · [Website](https://harshit1garg1.github.io/odoo-personal-work-manager-site/) · [Developer profile](https://github.com/Harshit1garg1)
 
-> **Current release status:** The ChatGPT plugin currently provides workflow guidance only. It does not yet connect to an Odoo server, retrieve live records, or make changes in an Odoo database. Live Odoo integration is planned for a future release.
+## Repository layout
 
-## What the project is designed to help with
+- Root HTML, CSS, JavaScript and `assets/`: GitHub Pages website, with no build step.
+- [`plugins/odoo-personal-work-manager/`](plugins/odoo-personal-work-manager/): plugin manifests, workflow skills, MCP connector, dashboard, Odoo addon and tests.
+- [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json): repo marketplace for supported local clients. It is separate from the public OpenAI Plugins Directory.
 
-- **Project and task overview:** Summarize assigned work, pending tasks, deadlines, priorities, and project progress.
-- **Time-spent analysis:** Review timesheet entries and compare actual logged time with planned effort without confusing estimates, scheduled hours, and actual time.
-- **Workload planning:** Prepare realistic weekly or date-range allocations, identify capacity problems, and suggest possible rebalancing.
-- **Task completion workflow:** Check the relevant task and its configured completion stage. Any consequential status change should be confirmed by the user and verified after the update.
+## Current status
 
-These are the intended workflows. Availability of live data and write operations depends on the future connector and the permissions of the connected Odoo account.
+The source is v0.2.0 developer preview. The existing ChatGPT listing is linked for discovery; its deployed package version and public availability have not been verified. Publishing this repository does not update that listing or make the connector live.
 
-## Odoo integration plans
+The connector requires an HTTPS deployment, OAuth configuration, a personal Odoo API key and the included Odoo 19 addon. Administrator-installed custom mappings support company-specific workflows. Other versions require compatibility testing. The committed MCP configurations intentionally contain no endpoint until a real deployment is configured.
 
-The planned integration will ask each user for their own Odoo instance URL and securely configured API credentials. For compatible Odoo 19 deployments, the preferred integration approach is Odoo's External JSON-2 API.
+## Run the sample dashboard
 
-The connector is not part of the current release. Before using live integration, the project must implement and verify secure credential capture and storage, per-user isolation, HTTPS validation, access-control enforcement, safe read/write operations, and credential revocation. Odoo version, deployment type, subscription, and API availability must be checked for each instance.
+Requires Node.js 24 or newer:
 
-**Never post an Odoo API key, password, session cookie, database backup, or confidential Odoo data in a public issue or repository.** API credentials must not be shared in ordinary ChatGPT messages.
+```sh
+cd plugins/odoo-personal-work-manager
+npm ci
+npm run demo
+```
 
-## Privacy and terms
+Open http://127.0.0.1:8787/dashboard. The demo uses fictional data in memory and accepts no real Odoo credentials. See the [plugin README](plugins/odoo-personal-work-manager/README.md) for build, test and deployment commands.
 
-The current release does not include a developer-operated Odoo connector or credential store. Information users choose to submit to ChatGPT is handled under the applicable OpenAI policies and account or workspace settings. The informational website is hosted by GitHub Pages.
+## Public directory publication
 
-Read the full project policies:
+See [the publishing guide](plugins/odoo-personal-work-manager/docs/publishing.md) for the remaining deployment, validation and review steps. GitHub distribution and OpenAI directory approval are separate.
 
-- [Privacy Policy](https://harshit1garg1.github.io/odoo-personal-work-manager-site/privacy.html)
-- [Terms of Service](https://harshit1garg1.github.io/odoo-personal-work-manager-site/terms.html)
-- [Support](https://harshit1garg1.github.io/odoo-personal-work-manager-site/support.html)
-- [Project website](https://harshit1garg1.github.io/odoo-personal-work-manager-site/)
+## Data and support
 
-These pages describe the current workflow-only release. They must be updated before a future connector is enabled so that its actual data handling, hosting, retention, deletion, and security arrangements are accurately disclosed.
+[Setup](https://harshit1garg1.github.io/odoo-personal-work-manager-site/setup.html) · [Privacy](https://harshit1garg1.github.io/odoo-personal-work-manager-site/privacy.html) · [Terms](https://harshit1garg1.github.io/odoo-personal-work-manager-site/terms.html) · [Support](https://harshit1garg1.github.io/odoo-personal-work-manager-site/support.html)
 
-## Pricing
+Never put credentials or confidential Odoo records in chat, public issues or Git. `.env.example` contains placeholders only. No license grant is added by this source publication; a distribution license needs the publisher's choice.
 
-The current release is free and does not offer paid features or in-plugin purchases. Optional paid functionality may be considered in a future version. Any future paid offering will be described with its applicable pricing and terms before it is made available.
-
-## Support and feedback
-
-For questions, bug reports, and feature suggestions, please [open an issue](https://github.com/Harshit1garg1/odoo-personal-work-manager-site/issues). Include reproducible steps and anonymized examples where possible. Do not include secrets, customer information, employee information, or confidential business records in public issues.
-
-## Developer
-
-Created and maintained by [Harshit Garg](https://github.com/Harshit1garg1).
-
-## Independence and trademarks
-
-Odoo Personal Work Manager is an independent project. It is not an official Odoo product and is not affiliated with or endorsed by Odoo S.A. “Odoo” is used only to identify the software this project is designed to assist with. Odoo is a trademark of its respective owner. ChatGPT and OpenAI are trademarks of their respective owner.
+Not affiliated with or endorsed by Odoo S.A. or OpenAI.

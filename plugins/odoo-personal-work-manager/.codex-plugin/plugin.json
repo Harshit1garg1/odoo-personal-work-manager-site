@@ -1,0 +1,53 @@
+{
+  "name": "odoo-personal-work-manager",
+  "version": "0.2.0",
+  "description": "Manage Odoo projects, tasks, assignments, timesheets, todos and notes through a permission-aware connector and interactive dashboard. Supports administrator-mapped custom modules.",
+  "author": {
+    "email": "2121310.cse.coe@cgc.edu.in",
+    "name": "Harshit Garg",
+    "url": "https://github.com/Harshit1garg1"
+  },
+  "keywords": [
+    "Odoo",
+    "projects",
+    "tasks",
+    "timesheets",
+    "time allocation",
+    "personal productivity",
+    "JSON-2 API",
+    "todos",
+    "notes",
+    "custom modules"
+  ],
+  "interface": {
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "category": "Productivity",
+    "defaultPrompt": [
+      "Show my Odoo work dashboard.",
+      "Log time on my task after I review the entry.",
+      "Find my overdue work and help me assign the next task."
+    ],
+    "developerName": "Harshit Garg",
+    "displayName": "Odoo Work",
+    "longDescription": "Manage accessible Odoo projects, tasks, assignments, allocations, timesheets, todos and private notes. Discover company-specific fields and configured custom workflows. Review each change before saving and verify the result. Requires a deployed authenticated connector and the included Odoo 19 addon. Unknown workflows require administrator mapping; unsupported features are shown explicitly.",
+    "shortDescription": "Projects, tasks and time in Odoo",
+    "websiteURL": "https://harshit1garg1.github.io/odoo-personal-work-manager-site/",
+    "supportURL": "https://harshit1garg1.github.io/odoo-personal-work-manager-site/support.html",
+    "privacyPolicyURL": "https://harshit1garg1.github.io/odoo-personal-work-manager-site/privacy.html",
+    "termsOfServiceURL": "https://harshit1garg1.github.io/odoo-personal-work-manager-site/terms.html",
+    "composerIcon": "./assets/icon-512.png",
+    "composerIconDark": "./assets/icon-512.png",
+    "logo": "./assets/icon-512.png",
+    "logoDark": "./assets/icon-512.png",
+    "brandColor": "#365b77",
+    "brandColorDark": "#9ebdd4"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "homepage": "https://harshit1garg1.github.io/odoo-personal-work-manager-site/",
+  "repository": "https://github.com/Harshit1garg1/odoo-personal-work-manager-site"
+}
