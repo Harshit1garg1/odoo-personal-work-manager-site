@@ -77,7 +77,7 @@ const contentsSections = contentsLinks.map(link => document.getElementById(link.
 if (contentsLinks.length) {
   let scrollQueued = false;
   function updateContents() {
-    const offset = (document.querySelector('.topbar')?.getBoundingClientRect().height || 0) + 40;
+    const offset = (document.querySelector('.topbar')?.getBoundingClientRect().height || 0) + 48;
     let active = 0;
     contentsSections.forEach((section, index) => {
       if (section && section.getBoundingClientRect().top <= offset) active = index;
@@ -97,3 +97,38 @@ if (contentsLinks.length) {
   addEventListener('load', queueContents);
   updateContents();
 }
+
+// The phone menu is an in-flow disclosure; desktop navigation stays visible.
+document.documentElement.classList.add('js');
+const menuButton = document.querySelector('.menu-toggle');
+const siteHeader = document.querySelector('.topbar');
+const phoneLayout = matchMedia('(max-width: 768px)');
+function closeMenu() {
+  siteHeader?.classList.remove('menu-open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  const label = menuButton?.querySelector('.menu-toggle-label');
+  if (label) label.textContent = 'Menu';
+}
+menuButton?.addEventListener('click', () => {
+  const open = menuButton.getAttribute('aria-expanded') !== 'true';
+  siteHeader.classList.toggle('menu-open', open);
+  menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.querySelector('.menu-toggle-label').textContent = open ? 'Close' : 'Menu';
+});
+document.querySelectorAll('.links a').forEach(link => link.addEventListener('click', closeMenu));
+addEventListener('keydown', event => {
+  if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+    closeMenu(); menuButton.focus();
+  }
+});
+addEventListener('click', event => { if (!siteHeader?.contains(event.target)) closeMenu(); });
+const documentContents = document.querySelector('.doc-contents');
+const contentsSummary = documentContents?.querySelector('summary');
+contentsSummary?.addEventListener('click', event => { if (!phoneLayout.matches) event.preventDefault(); });
+function adaptNavigation() {
+  closeMenu();
+  if (documentContents) documentContents.open = !phoneLayout.matches;
+  if (contentsSummary) contentsSummary.tabIndex = phoneLayout.matches ? 0 : -1;
+}
+phoneLayout.addEventListener('change', adaptNavigation);
+adaptNavigation();
